@@ -84,9 +84,28 @@ func main() {
 main:
 	for {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
-			switch event.(type) {
+			switch t := event.(type) {
 			case *sdl.QuitEvent:
 				break main
+
+			case *sdl.KeyboardEvent:
+				switch t.Keysym.Sym {
+				case sdl.K_q:
+					for i := WIDTH; i > 0; i-- {
+						reduced := pixels[(HEIGHT*WIDTH)-i] - 1
+						if reduced >= 0 {
+							pixels[(HEIGHT*WIDTH)-i] = reduced
+						}
+					}
+
+				case sdl.K_e:
+					for i := WIDTH; i > 0; i-- {
+						increased := pixels[(HEIGHT*WIDTH)-i] + 1
+						if increased < len(palette) {
+							pixels[(HEIGHT*WIDTH)-i] = increased
+						}
+					}
+				}
 			}
 		}
 
