@@ -50,12 +50,12 @@ var palette = []color.RGBA{
 const (
 	WIDTH  = 108
 	HEIGHT = 70
+	SIZE   = 8
 )
 
 func main() {
-	size := 8
-	screenWidth := (WIDTH * size) + 1   // Additional space for the last one
-	screenHeight := (HEIGHT * size) + 1 // Additional space for the last one
+	screenWidth := (WIDTH * SIZE) + 1   // Additional space for the last one
+	screenHeight := (HEIGHT * SIZE) + 1 // Additional space for the last one
 	pixels := [HEIGHT * WIDTH]int{}
 
 	// Setting the bottom line to white
@@ -72,7 +72,6 @@ func main() {
 	if err != nil {
 		panic("unable to create window")
 	}
-	window.SetResizable(true)
 	defer window.Destroy()
 
 	renderer, err := sdl.CreateRenderer(window, -1, sdl.RENDERER_ACCELERATED)
@@ -114,14 +113,9 @@ main:
 
 		// Handling fire propogation
 		for i := 0; i < WIDTH; i++ {
-			for j := 0; j < HEIGHT; j++ {
+			for j := 0; j < HEIGHT-1; j++ {
 				current := i + (j * WIDTH)
-
 				below := current + WIDTH
-
-				if below > (WIDTH*HEIGHT)-1 {
-					continue
-				}
 
 				r := rand.Int() % 3
 				c := current - rand.Int()%2
@@ -136,7 +130,7 @@ main:
 			for j := 0; j < HEIGHT; j++ {
 				c := palette[pixels[i+(j*WIDTH)]]
 				renderer.SetDrawColor(c.R, c.G, c.B, c.A)
-				rect := sdl.Rect{X: int32(i * size), Y: int32(j * size), W: int32(size), H: int32(size)}
+				rect := sdl.Rect{X: int32(i * SIZE), Y: int32(j * SIZE), W: int32(SIZE), H: int32(SIZE)}
 				renderer.FillRect(&rect)
 			}
 		}
