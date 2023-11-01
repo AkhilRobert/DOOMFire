@@ -9,10 +9,10 @@ go build
 ./DOOMFire
 ```
 
-| Key          | Usage                  |
-| ------------ | ---------------------- |
-| <kbd>q</kbd> | Increase fire intesity |
-| <kbd>e</kbd> | Decrease fire intesity |
+| Key          | Usage                   |
+| ------------ | ----------------------- |
+| <kbd>q</kbd> | Increase fire intensity |
+| <kbd>e</kbd> | Decrease fire intensity |
 
 ## Demo
 
